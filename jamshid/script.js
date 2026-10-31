@@ -4,6 +4,9 @@ const dividendInput = document.getElementById("dividendInput");
 const divisorInput = document.getElementById("divisorInput");
 const divisionResult = document.getElementById("divisionResult");
 const errorResult = document.getElementById("errorResult");
+const mathResult = document.getElementById("mathResult");
+
+// SyntaxError misoli faqat izoh sifatida: const value = (1 + 2;
 
 function validateNumber(value) {
     if (value.trim() === "") {
@@ -62,4 +65,29 @@ function runDivision() {
     } finally {
         errorResult.textContent = "Bo'lish amali tekshirildi.";
     }
+}
+
+function demonstrateRuntimeError() {
+    try {
+        const value = null;
+        value.toString();
+    } catch (error) {
+        errorResult.textContent = `${error.name}: ${error.message}`;
+    }
+}
+
+function demonstrateLogicalError() {
+    const numbers = [4, 8, 12];
+    const sum = numbers.reduce((total, number) => total + number, 0);
+    const incorrectAverage = sum / 2;
+    const correctAverage = sum / numbers.length;
+
+    mathResult.textContent =
+        `Noto'g'ri o'rtacha: ${incorrectAverage}; ` +
+        `Tuzatilgan o'rtacha: ${correctAverage}`;
+}
+
+function demonstrateErrors() {
+    demonstrateRuntimeError();
+    demonstrateLogicalError();
 }
