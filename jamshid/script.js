@@ -1,12 +1,11 @@
 const numberInput = document.getElementById("numberInput");
 const numberResult = document.getElementById("numberResult");
+const arrayInput = document.getElementById("arrayInput");
 const dividendInput = document.getElementById("dividendInput");
 const divisorInput = document.getElementById("divisorInput");
 const divisionResult = document.getElementById("divisionResult");
 const errorResult = document.getElementById("errorResult");
 const mathResult = document.getElementById("mathResult");
-
-// SyntaxError misoli faqat izoh sifatida: const value = (1 + 2;
 
 function validateNumber(value) {
     if (value.trim() === "") {
@@ -27,15 +26,39 @@ function checkNumber() {
         const number = validateNumber(numberInput.value);
 
         if (number > 0) {
-            numberResult.textContent = "musbat";
+            showMessage("numberResult", "musbat");
         } else if (number < 0) {
-            numberResult.textContent = "manfiy";
+            showMessage("numberResult", "manfiy");
         } else {
-            numberResult.textContent = "nol";
+            showMessage("numberResult", "nol");
         }
     } catch (error) {
-        numberResult.textContent = error.message;
+        showMessage("numberResult", error.message);
     }
+}
+
+function showMessage(elementId, message) {
+    const element = document.getElementById(elementId);
+
+    if (!element) {
+        throw new Error("Natija elementi topilmadi");
+    }
+
+    element.textContent = message;
+}
+
+function clearResults() {
+    numberInput.value = "";
+    arrayInput.value = "";
+
+    [
+        "numberResult",
+        "mathResult",
+        "arrayResult",
+        "randomResult",
+        "divisionResult",
+        "errorResult"
+    ].forEach(elementId => showMessage(elementId, ""));
 }
 
 function divideNumbers(a, b) {
